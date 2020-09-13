@@ -7,7 +7,7 @@ const unsigned int OVERTIME_ALLOWANCE = 3000;
 const unsigned int WORKING_DAYS_IN_MONTH = 20;
 
 struct Map {
-  char group[5];
+  char group[3];
   float percentage;
 };
 
@@ -25,7 +25,7 @@ struct Map Education[3] = {
 
 int getPositionIndex(char group[]){
   int length = sizeof(Position) / sizeof(Position[0]);
-  for(int i = 0; i < 3; i++){
+  for(int i = 0; i < length; i++){
     if(strcasecmp(group, Position[i].group) == 0){
       return i;
     }
@@ -35,7 +35,7 @@ int getPositionIndex(char group[]){
 
 int getEducationIndex(char group[]){
   int length = sizeof(Education) / sizeof(Education[0]);
-  for(int i = 0; i < 3; i++){
+  for(int i = 0; i < length; i++){
     if(strcasecmp(group, Education[i].group) == 0){
       return i;
     }
@@ -60,14 +60,32 @@ int countTotalSalary(int positionAllowance, int educationAllowance, int overtime
 }
 
 int main(void) {
-  char employeeName[20], employeePosition[3], employeeEducation[3];
+  char employeeName[20], employeePosition[2], employeeEducation[4];
   int employeeWorkingHours;
+
+  unsigned int positionAllowance, educationAllowance, overtimeAllowanve, totalSalary;
 
   printf("PROGRAM HITUNG GAJI KARYAWAN\n");
   printf("Nama Karyawan: "); scanf("%[^\n]%*c", employeeName);
   printf("Golongan Jabatan: "); scanf("%[^\n]%*c", employeePosition);
   printf("Pendidikan: "); scanf("%[^\n]%*c", employeeEducation);
   printf("Jumlah jam kerja: "); scanf("%d", &employeeWorkingHours);
+
+  int indexPosition = getPositionIndex(employeePosition);
+  
+  int indexEducation = getEducationIndex(employeeEducation);
+
+  if (indexPosition < 0 || indexEducation < 0){
+    printf("Data yang anda masukan tidak valid! Periksa kembali!");
+  } else if (employeeWorkingHours < MINIMUM_WORKING_HOURS){
+    printf("Jumlah jam kerja harian dibawah minimum! Minimum jam kerja %d jam", MINIMUM_WORKING_HOURS);
+  } else {
+    printf("Nama Karyawan: %s\n", employeeName);
+    printf("\t Tunjangan Jabatan Rp %d\n", countPositionAllowance(indexPosition));
+    printf("\t Tunjangan Pendidikan Rp %d\n", countEducationAllowance(indexEducation));
+    printf("\t Honor Lembur Rp %d\n", countOvertimeAllowance(employeeWorkingHours));
+    printf("Total Gaji Rp %d\n", countTotalSalary(countPositionAllowance(indexPosition), countEducationAllowance(indexEducation), countOvertimeAllowance(employeeWorkingHours)));
+  }
 
   getchar();
   return 0;
