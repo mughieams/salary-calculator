@@ -2,9 +2,10 @@
 #include <strings.h>
 
 const unsigned int BASIC_SALARY = 2000000;
-const unsigned int NORMAL_WORKING_HOURS = 8;
-const unsigned int OVERTIME_SALARY = 3000;
+const unsigned int MINIMUM_WORKING_HOURS = 8;
+const unsigned int OVERTIME_ALLOWANCE = 3000;
 const unsigned int WORKING_DAYS_IN_MONTH = 20;
+const unsigned int NORMAL_WORKING_IN_HOURS = WORKING_DAYS_IN_MONTH * MINIMUM_WORKING_HOURS;
 
 struct Map {
   char group[3];
@@ -50,6 +51,10 @@ int countEducationAllowance(int index){
 int countPositionAllowance(int index){
   return BASIC_SALARY * Position[index].percentage;
 };
+
+int countOvertimeAllowance(int hours){
+  return hours > NORMAL_WORKING_IN_HOURS ? OVERTIME_ALLOWANCE * (hours - NORMAL_WORKING_IN_HOURS) : 0;
+}
 
 int main(void) {
   char employeeName[20], employeePosition[3], employeeEducation[3];
