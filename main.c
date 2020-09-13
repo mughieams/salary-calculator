@@ -43,12 +43,12 @@ int getEducationIndex(char group[]){
   return -1;
 }
 
-int countAllowance(int index){
-
+int countEducationAllowance(int index){
+  return BASIC_SALARY * Education[index].percentage;
 };
 
-int calculatePositionAllowance(int index){
-
+int countPositionAllowance(int index){
+  return BASIC_SALARY * Position[index].percentage;
 };
 
 int main(void) {
