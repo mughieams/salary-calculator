@@ -78,7 +78,7 @@ int main(void) {
   if (indexPosition < 0 || indexEducation < 0){
     printf("Data yang anda masukan tidak valid! Periksa kembali!");
   } else if (employeeWorkingHours < MINIMUM_WORKING_HOURS){
-    printf("Jumlah jam kerja harian dibawah minimum! Minimum jam kerja %d jam", MINIMUM_WORKING_HOURS);
+    printf("Minimum jam kerja harian %d jam!", MINIMUM_WORKING_HOURS);
   } else {
     printf("Nama Karyawan: %s\n", employeeName);
     printf("\t Tunjangan Jabatan Rp %d\n", countPositionAllowance(indexPosition));
