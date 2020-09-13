@@ -56,6 +56,10 @@ int countOvertimeAllowance(int hours){
   return hours > NORMAL_WORKING_IN_HOURS ? OVERTIME_ALLOWANCE * (hours - NORMAL_WORKING_IN_HOURS) : 0;
 }
 
+int countTotalSalary(int positionAllowance, int educationAllowance, int overtimeAllowance){
+  return BASIC_SALARY + positionAllowance + educationAllowance + overtimeAllowance;
+}
+
 int main(void) {
   char employeeName[20], employeePosition[3], employeeEducation[3];
   int employeeWorkingHours;
