@@ -5,10 +5,9 @@ const unsigned int BASIC_SALARY = 2000000;
 const unsigned int MINIMUM_WORKING_HOURS = 8;
 const unsigned int OVERTIME_ALLOWANCE = 3000;
 const unsigned int WORKING_DAYS_IN_MONTH = 20;
-const unsigned int NORMAL_WORKING_IN_HOURS = WORKING_DAYS_IN_MONTH * MINIMUM_WORKING_HOURS;
 
 struct Map {
-  char group[3];
+  char group[5];
   float percentage;
 };
 
@@ -26,7 +25,7 @@ struct Map Education[3] = {
 
 int getPositionIndex(char group[]){
   int length = sizeof(Position) / sizeof(Position[0]);
-  for(int i = 0; i < length; i++){
+  for(int i = 0; i < 3; i++){
     if(strcasecmp(group, Position[i].group) == 0){
       return i;
     }
@@ -36,7 +35,7 @@ int getPositionIndex(char group[]){
 
 int getEducationIndex(char group[]){
   int length = sizeof(Education) / sizeof(Education[0]);
-  for(int i = 0; i < length; i++){
+  for(int i = 0; i < 3; i++){
     if(strcasecmp(group, Education[i].group) == 0){
       return i;
     }
@@ -53,7 +52,7 @@ int countPositionAllowance(int index){
 };
 
 int countOvertimeAllowance(int hours){
-  return hours > NORMAL_WORKING_IN_HOURS ? OVERTIME_ALLOWANCE * (hours - NORMAL_WORKING_IN_HOURS) : 0;
+  return hours > MINIMUM_WORKING_HOURS ? OVERTIME_ALLOWANCE * ((hours - MINIMUM_WORKING_HOURS) * WORKING_DAYS_IN_MONTH) : 0;
 }
 
 int countTotalSalary(int positionAllowance, int educationAllowance, int overtimeAllowance){
@@ -65,11 +64,11 @@ int main(void) {
   int employeeWorkingHours;
 
   printf("PROGRAM HITUNG GAJI KARYAWAN\n");
-  printf("Nama Karyawan: "); scanf("%s", employeeName);
-  printf("Golongan Jabatan: "); scanf("%s", employeePosition);
-  printf("Pendidikan: "); scanf("%s", employeeEducation);
+  printf("Nama Karyawan: "); scanf("%[^\n]%*c", employeeName);
+  printf("Golongan Jabatan: "); scanf("%[^\n]%*c", employeePosition);
+  printf("Pendidikan: "); scanf("%[^\n]%*c", employeeEducation);
   printf("Jumlah jam kerja: "); scanf("%d", &employeeWorkingHours);
 
-
+  getchar();
   return 0;
 }
